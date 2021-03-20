@@ -53,7 +53,7 @@ const filterMessages = [
   'was shot by', 'was blown up', 'was slain by', 'was punched out', 'was knocked out', 'was shot out', 'was picked up',
   'was knocked off', 'fell out', 'was blown off', 'was shot off', 'joined the game', 'left the game', 'hit the ground',
   'blocks and died', 'out of the world', 'fell off a high place', 'was sniped off', 'was punched off', 'tripped and fell',
-  'was sniped by', 'went splat', 'died'
+  'was sniped by', 'went splat', 'died', 'was killed by'
 ];
 
 bot.on('message', (jsonMsg) => {
@@ -88,6 +88,7 @@ bot.on('message', (jsonMsg) => {
 
     // Skip messages that aren't flags ("!").
     if (!playerMessage.startsWith('!')) {
+      console.log('MSG', stringMessage);
       return;
     }
 
