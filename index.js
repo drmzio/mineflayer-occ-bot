@@ -114,6 +114,7 @@ bot.on('message', (jsonMsg) => {
         bot.chat(`/msg ${playerName} There are currently ${playersArr.length} players online.`);
         break;
       default:
+        bot.chat(`/msg ${playerName} Sorry, I don't recognize that command.`);
         return;
     }
 
