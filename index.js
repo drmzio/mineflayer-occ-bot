@@ -1,13 +1,12 @@
 require('dotenv').config();
 const mineflayer = require('mineflayer');
-//const { mineflayer: mineflayerViewer } = require('prismarine-viewer');
+const { mineflayer: mineflayerViewer } = require('prismarine-viewer');
 
 /**
  * Create the bot instance.
  */
 const bot = mineflayer.createBot({
   host: process.env.MC_HOST,
-  //port: 53091,
   username: process.env.MC_USERNAME,
   password: process.env.MC_PASSWORD,
   auth: process.env.MC_AUTH,
@@ -16,21 +15,21 @@ const bot = mineflayer.createBot({
 /**
  * Load any plugins for the bot.
  */
-bot.loadPlugin(require('mineflayer-dashboard')({
+/*bot.loadPlugin(require('mineflayer-dashboard')({
   chatPattern: /^» \w+? » /
-}));
+}));*/
 
-bot.once('inject_allowed', () => {
+/*bot.once('inject_allowed', () => {
   if (bot.dashboard) {
     // Override the default console.log to display on the dashboard if available.
     global.console.log = bot.dashboard.log;
     global.console.error = bot.dashboard.log;
   }
-});
+});*/
 
-// bot.once('spawn', () => {
-//   mineflayerViewer(bot, { port: 3007, firstPerson: true });
-// });
+bot.once('spawn', () => {
+  mineflayerViewer(bot, { port: process.env.PORT || 3000 });
+});
 
 const getPlayers = (playersList) => {
   return Object.keys(playersList).filter(p => !p.startsWith('|'));
