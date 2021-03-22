@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "PORT=3000 node index.js",
+    "postinstall": "PORT=$PORT node index.js",
+    "start": "PORT=$PORT node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -12,6 +13,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "mineflayer": "^3.3.2",
+    "mineflayer-dashboard": "^2.0.0",
     "prismarine-viewer": "^1.18.2"
   }
 }
