@@ -37,7 +37,7 @@ const getPlayers = (playersList) => {
 };
 
 let status = null;
-
+let reconnectCount = 0;
 let mapName = '';
 
 bot.on('spawn', () => {
@@ -140,6 +140,16 @@ bot.on('message', (jsonMsg) => {
 
     console.log('COMMAND', command, extra);
 
+  }
+
+  // Try to rejoin the server after a certain period.
+  if (stringMessage.includes('Reconnecting to Overcast Community')) {
+    if (reconnectCount > 12) {
+      bot.chat('/occ');
+      reconnectCount = 0;
+    } else {
+      reconnectCount++;
+    }
   }
 
   console.log('SERVER', stringMessage);
