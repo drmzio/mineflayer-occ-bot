@@ -1,6 +1,7 @@
 require('dotenv').config();
 const mineflayer = require('mineflayer');
 const { mineflayer: mineflayerViewer } = require('prismarine-viewer');
+const fetch = require('node-fetch');
 
 /**
  * Create the bot instance.
@@ -70,7 +71,8 @@ const filterMessages = [
   'was shot by', 'was blown up', 'was slain by', 'was punched out', 'was knocked out', 'was shot out', 'was picked up',
   'was knocked off', 'fell out', 'was blown off', 'was shot off', 'joined the game', 'left the game', 'hit the ground',
   'blocks and died', 'out of the world', 'fell off a high place', 'was sniped off', 'was punched off', 'tripped and fell',
-  'was sniped by', 'went splat', 'died', 'was killed by', 'was knocked into', 'was shot into'
+  'was sniped by', 'went splat', 'died', 'was killed by', 'was knocked into', 'was shot into', 'felt the fury', 'was spleefed off',
+  'went up in flames'
 ];
 
 bot.on('message', (jsonMsg) => {
@@ -150,3 +152,15 @@ bot.on('message', (jsonMsg) => {
 
 bot.on('kicked', console.log);
 bot.on('error', console.log);
+
+/**
+ * Send a request to the Heroku dyno before it sleeps.
+ */
+if (process.env.HEROKU_URL) {
+  const pingDyno = () => {
+    fetch(process.env.HEROKU_URL).then(() => {
+      console.log('--- WAKE UP ---');
+    });
+  };
+  setInterval(pingDyno, 1200000); // Ping every 20 minutes.
+}

@@ -13,6 +13,7 @@
     "dotenv": "^8.2.0",
     "mineflayer": "^3.3.2",
     "mineflayer-dashboard": "^2.0.0",
+    "node-fetch": "^2.6.1",
     "prismarine-viewer": "^1.18.2"
   }
 }
