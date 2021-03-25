@@ -1,7 +1,9 @@
 require('dotenv').config();
 const mineflayer = require('mineflayer');
 const { mineflayer: mineflayerViewer } = require('prismarine-viewer');
-const fetch = require('node-fetch');
+const db = require('./queries');
+
+require('./heroku');
 
 /**
  * Create the bot instance.
@@ -33,7 +35,19 @@ bot.once('spawn', () => {
 });
 
 const getPlayers = (playersList) => {
-  return Object.keys(playersList).filter(p => !p.startsWith('|'));
+  return Object.keys(playersList).filter(p => !p.startsWith('|')).map(u => {
+    return {
+      uuid: playersList[u].uuid,
+      username: playersList[u].username,
+    };
+  });
+};
+
+const registerPlayers = (playersArr) => {
+  playersArr.forEach(player => {
+    db.createPlayer(player);
+    console.log(`Added player: ${player.username}`);
+  });
 };
 
 let status = null;
@@ -42,8 +56,10 @@ let mapName = '';
 
 bot.on('spawn', () => {
   const playersArr = getPlayers(bot.players);
-  console.log('PLAYERS', playersArr.length, playersArr);
-  //console.log('SCOREBOARD', bot.scoreboard.sidebar.name, bot.scoreboard.sidebar.title);
+  console.log('PLAYERS', playersArr.length, JSON.stringify(playersArr));
+
+  registerPlayers(playersArr);
+
   bot.chat('/pgm:mapinfo'); // Spits out the map info.
   status = 'MAPINFO';
 });
@@ -162,15 +178,3 @@ bot.on('message', (jsonMsg) => {
 
 bot.on('kicked', console.log);
 bot.on('error', console.log);
-
-/**
- * Send a request to the Heroku dyno before it sleeps.
- */
-if (process.env.HEROKU_URL) {
-  const pingDyno = () => {
-    fetch(process.env.HEROKU_URL).then(() => {
-      console.log('--- WAKE UP ---');
-    });
-  };
-  setInterval(pingDyno, 1200000); // Ping every 20 minutes.
-}
