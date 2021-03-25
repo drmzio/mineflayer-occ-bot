@@ -15,7 +15,7 @@ const createPlayer = async (playerObj) => {
     const { uuid } = playerObj;
 
     await pool.query(
-      'INSERT INTO players (mc_uuid) VALUES ($1) ON CONFLICT (mc_uuid) DO NOTHING', 
+      'INSERT INTO players (mc_uuid) VALUES ($1) ON CONFLICT (mc_uuid) DO UPDATE SET updated_at = NOW()', 
       [uuid]
     );
   } catch (err) {
