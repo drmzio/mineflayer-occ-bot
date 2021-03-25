@@ -46,7 +46,6 @@ const getPlayers = (playersList) => {
 const registerPlayers = (playersArr) => {
   playersArr.forEach(player => {
     db.createPlayer(player);
-    console.log(`Added player: ${player.username}`);
   });
 };
 
