@@ -15,6 +15,18 @@ const bot = mineflayer.createBot({
   auth: process.env.MC_AUTH,
 });
 
+const createViewer = () => {
+  console.log('--- VIEWER --- Creating the viewer...');
+  // Destroy the current viewer if exists.
+  if (bot.viewer) {
+    console.log('--- VIEWER --- Deleting the old viewer');
+    bot.viewer.close();
+    bot.viewer = undefined;
+  }
+
+  mineflayerViewer(bot, { port: process.env.PORT || 3000 });
+};
+
 /**
  * Load any plugins for the bot.
  */
@@ -30,9 +42,7 @@ const bot = mineflayer.createBot({
   }
 });*/
 
-bot.once('spawn', () => {
-  mineflayerViewer(bot, { port: process.env.PORT || 3000 });
-});
+//bot.once('spawn', createViewer);
 
 const getPlayers = (playersList) => {
   return Object.keys(playersList).filter(p => !p.startsWith('|')).map(u => {
@@ -54,6 +64,8 @@ let reconnectCount = 0;
 let mapName = '';
 
 bot.on('spawn', () => {
+  createViewer();
+
   const playersArr = getPlayers(bot.players);
   console.log('PLAYERS', playersArr.length, JSON.stringify(playersArr));
 
