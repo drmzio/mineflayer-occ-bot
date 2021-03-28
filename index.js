@@ -69,7 +69,7 @@ bot.on('spawn', () => {
   const playersArr = getPlayers(bot.players);
   console.log('PLAYERS', playersArr.length, JSON.stringify(playersArr));
 
-  registerPlayers(playersArr);
+  //registerPlayers(playersArr);
 
   bot.chat('/pgm:mapinfo'); // Spits out the map info.
   status = 'MAPINFO';
