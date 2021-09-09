@@ -11,10 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "mineflayer": "^3.3.2",
+    "mineflayer": "^3.11.0",
     "mineflayer-dashboard": "^2.0.0",
-    "node-fetch": "^2.6.1",
-    "pg": "^8.5.1",
-    "prismarine-viewer": "^1.18.2"
+    "node-fetch": "^3.0.0",
+    "pg": "^8.7.1",
+    "prismarine-viewer": "^1.20.0"
   }
 }

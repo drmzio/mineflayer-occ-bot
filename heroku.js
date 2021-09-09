@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const fetch = import('node-fetch');
 
 /**
  * Send a request to the Heroku dyno before it sleeps.
