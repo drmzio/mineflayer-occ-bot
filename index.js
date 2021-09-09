@@ -18,11 +18,11 @@ const bot = mineflayer.createBot({
 const createViewer = () => {
   console.log('--- VIEWER --- Creating the viewer...');
   // Destroy the current viewer if exists.
-  if (bot.viewer) {
+  /*if (bot.viewer) {
     console.log('--- VIEWER --- Deleting the old viewer');
     bot.viewer.close();
     bot.viewer = undefined;
-  }
+  }*/
 
   mineflayerViewer(bot, { port: process.env.PORT || 3000 });
 };
